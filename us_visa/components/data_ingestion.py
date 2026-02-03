@@ -7,20 +7,20 @@ from sklearn.model_selection import train_test_split
 from us_visa.entity.config_entity import DataIngestionConfig
 from us_visa.entity.artifact_entity import DataIngestionArtifact
 from us_visa.exception import USVISAException
-
 from us_visa.logger import logging
 from us_visa.data_access.usvisa_data import USvisaData
 
 
 
 class DataIngestion:
-    def __init__(self, data_ingestion_config: DataIngestionConfig):
-
+    def __init__(self,data_ingestion_config:DataIngestionConfig=DataIngestionConfig()):
+        """
+        :param data_ingestion_config: configuration for data ingestion
+        """
         try:
             self.data_ingestion_config = data_ingestion_config
         except Exception as e:
-            raise USVISAException(e, sys)
-
+            raise USVISAException(e,sys)
         
 
     
@@ -103,7 +103,7 @@ class DataIngestion:
             )
 
             data_ingestion_artifact = DataIngestionArtifact(trained_file_path=self.data_ingestion_config.training_file_path,
-               test_file_path=self.data_ingestion_config.testing_file_path)
+            test_file_path=self.data_ingestion_config.testing_file_path)
             
             logging.info(f"Data ingestion artifact: {data_ingestion_artifact}")
             return data_ingestion_artifact
