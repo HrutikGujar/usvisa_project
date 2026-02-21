@@ -33,3 +33,16 @@ entity
 components
 pipeline
 Main file
+
+Export the environment variable
+```bash
+export MONGODB_URL="mongodb+srv://<username>:<password>...."
+
+export AWS_ACCESS_KEY_ID=****
+
+
+export AWS_SECRET_ACCESS_KEY=****
+
+
+
+ecr_repo_uri: 767884848991.dkr.ecr.us-east-1.amazonaws.com/visa_repo
