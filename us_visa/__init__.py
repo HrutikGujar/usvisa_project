@@ -4,7 +4,7 @@ import numpy as np
 import dill
 import yaml
 from pandas import DataFrame    
-from us_visa.exception import USVISAException
+from us_visa.exception import USvisaException
 from us_visa.logger import logging
 
 
@@ -13,7 +13,7 @@ def read_yaml_file(file_path: str) -> dict:
         with open(file_path, 'rb') as yaml_file:
             return yaml.safe_load(yaml_file)
     except Exception as e:
-        raise USVISAException(e, sys) from e
+        raise USvisaException(e, sys) from e
     
 
 def write_yaml_file(file_path: str, content: object, replace: bool = False) -> None:
@@ -25,7 +25,7 @@ def write_yaml_file(file_path: str, content: object, replace: bool = False) -> N
         with open(file_path, 'w') as file:
             yaml.dump(content, file)
     except Exception as e:
-        raise USVISAException(e, sys) from e
+        raise USvisaException(e, sys) from e
     
 def load_object(file_path: str) -> object:
     try:
@@ -34,7 +34,7 @@ def load_object(file_path: str) -> object:
             logging.info(f"Exited load_object function of utils")
         return obj
     except Exception as e:
-        raise USVISAException(e, sys) from e
+        raise USvisaException(e, sys) from e
 
 def save_numpy_array_data(file_path: str, array: np.array) -> None:
     try:
@@ -43,7 +43,7 @@ def save_numpy_array_data(file_path: str, array: np.array) -> None:
         with open(file_path, 'wb') as file_obj:
             np.save(file_obj, array)
     except Exception as e:
-        raise USVISAException(e, sys) from e
+        raise USvisaException(e, sys) from e
 
 def load_numpy_array_data(file_path: str) -> np.array:
     try:
@@ -51,7 +51,7 @@ def load_numpy_array_data(file_path: str) -> np.array:
             array = np.load(file_obj)
         return array
     except Exception as e:
-        raise USVISAException(e, sys) from e
+        raise USvisaException(e, sys) from e
 
 def save_object(file_path: str, obj: object) -> None:
     logging.info(f"Entered the save_object function of utils")
@@ -62,11 +62,11 @@ def save_object(file_path: str, obj: object) -> None:
         
         logging.info(f"Exited the save_object function of utils")
     except Exception as e:  
-        raise USVISAException(e, sys) from e
+        raise USvisaException(e, sys) from e
 
 def drop_columns(df: DataFrame, columns: list) -> DataFrame:
     try:
         logging.info(f"Dropping columns: {columns}")
         return df.drop(columns=columns, axis=1)
     except Exception as e:
-        raise USVISAException(e, sys) from e
+        raise USvisaException(e, sys) from e

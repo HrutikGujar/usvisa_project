@@ -8,7 +8,7 @@ from evidently.model_profile.sections import DataDriftProfileSection
 
 from pandas import DataFrame
 
-from us_visa.exception import USVISAException
+from us_visa.exception import USvisaException
 from us_visa.logger import logging
 from us_visa.utils.main_utils import read_yaml_file, write_yaml_file
 from us_visa.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
@@ -27,7 +27,7 @@ class DataValidation:
             self.data_validation_config = data_validation_config
             self._schema_config =read_yaml_file(file_path=SCHEMA_FILE_PATH)
         except Exception as e:
-            raise USVISAException(e,sys)
+            raise USvisaException(e,sys)
 
     def validate_number_of_columns(self, dataframe: DataFrame) -> bool:
         """
@@ -42,7 +42,7 @@ class DataValidation:
             logging.info(f"Is required column present: [{status}]")
             return status
         except Exception as e:
-            raise USVISAException(e, sys)
+            raise USvisaException(e, sys)
 
     def is_column_exist(self, df: DataFrame) -> bool:
         """
@@ -73,14 +73,14 @@ class DataValidation:
 
             return False if len(missing_categorical_columns)>0 or len(missing_numerical_columns)>0 else True
         except Exception as e:
-            raise USVISAException(e, sys) from e
+            raise USvisaException(e, sys) from e
 
     @staticmethod
     def read_data(file_path) -> DataFrame:
         try:
             return pd.read_csv(file_path)
         except Exception as e:
-            raise USVISAException(e, sys)
+            raise USvisaException(e, sys)
 
     def detect_dataset_drift(self, reference_df: DataFrame, current_df: DataFrame, ) -> bool:
         """
@@ -107,7 +107,7 @@ class DataValidation:
             drift_status = json_report["data_drift"]["data"]["metrics"]["dataset_drift"]
             return drift_status
         except Exception as e:
-            raise USVISAException(e, sys) from e
+            raise USvisaException(e, sys) from e
 
     def initiate_data_validation(self) -> DataValidationArtifact:
         """
@@ -165,7 +165,7 @@ class DataValidation:
             logging.info(f"Data validation artifact: {data_validation_artifact}")
             return data_validation_artifact
         except Exception as e:
-            raise USVISAException(e, sys) from e
+            raise USvisaException(e, sys) from e
     def run_pipeline(self, ) -> None:
         """
         This method of TrainPipeline class is responsible for running complete pipeline
@@ -176,4 +176,4 @@ class DataValidation:
 
            
         except Exception as e:
-            raise USVISAException(e, sys)
+            raise USvisaException(e, sys)

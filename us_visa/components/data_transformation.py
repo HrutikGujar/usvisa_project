@@ -9,7 +9,7 @@ from sklearn.compose import ColumnTransformer
 from us_visa.constants import TARGET_COLUMN, SCHEMA_FILE_PATH, CURRENT_YEAR
 from us_visa.entity.config_entity import DataTransformationConfig
 from us_visa.entity.artifact_entity import DataTransformationArtifact, DataIngestionArtifact, DataValidationArtifact
-from us_visa.exception import USVISAException
+from us_visa.exception import USvisaException
 from us_visa.logger import logging
 from us_visa.utils.main_utils import save_object, save_numpy_array_data, read_yaml_file, drop_columns
 from us_visa.entity.estimator import TargetValueMapping
@@ -30,14 +30,14 @@ class DataTransformation:
             self.data_validation_artifact = data_validation_artifact
             self._schema_config = read_yaml_file(file_path=SCHEMA_FILE_PATH)
         except Exception as e:
-            raise USVISAException(e, sys)
+            raise USvisaException(e, sys)
 
     @staticmethod
     def read_data(file_path) -> pd.DataFrame:
         try:
             return pd.read_csv(file_path)
         except Exception as e:
-            raise USVISAException(e, sys)
+            raise USvisaException(e, sys)
 
     
     def get_data_transformer_object(self) -> Pipeline:
@@ -88,7 +88,7 @@ class DataTransformation:
             return preprocessor
 
         except Exception as e:
-            raise USVISAException(e, sys) from e
+            raise USvisaException(e, sys) from e
 
     def initiate_data_transformation(self, ) -> DataTransformationArtifact:
         """
@@ -208,4 +208,4 @@ class DataTransformation:
                 raise Exception(self.data_validation_artifact.message)
 
         except Exception as e:
-            raise USVISAException(e, sys) from e
+            raise USvisaException(e, sys) from e

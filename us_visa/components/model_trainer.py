@@ -8,7 +8,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from neuro_mf  import ModelFactory
 
-from us_visa.exception import USVISAException
+from us_visa.exception import USvisaException
 from us_visa.logger import logging
 from us_visa.utils.main_utils import load_numpy_array_data, read_yaml_file, load_object, save_object
 from us_visa.entity.config_entity import ModelTrainerConfig
@@ -55,7 +55,7 @@ class ModelTrainer:
             return best_model_detail, metric_artifact
         
         except Exception as e:
-            raise USVISAException(e, sys) from e
+            raise USvisaException(e, sys) from e
         
 
     def initiate_model_trainer(self, ) -> ModelTrainerArtifact:
@@ -93,4 +93,4 @@ class ModelTrainer:
             logging.info(f"Model trainer artifact: {model_trainer_artifact}")
             return model_trainer_artifact
         except Exception as e:
-            raise USVISAException(e, sys) from e
+            raise USvisaException(e, sys) from e
